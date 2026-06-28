@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<header>
+    <input type="text" placeholder="Type to search" id="url">
+    <button id="search">Search</button>
+</header>
+<iframe src="" frameborder="0" id="view"></iframe>
+<script>
+    const inp = document.querySelector('input#url');
+    const btn = document.querySelector('button#search');
+    const view = document.querySelector('iframe#view');
+
+    btn.addEventListener('click', () => {
+        view.setAttribute('src', parseAddress(inp?.value));
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' && document.activeElement === inp) {
+            btn.click();
+        }
+    });
+
+    function parseAddress(address) {
+        if (!address.includes('/')) address += '/';
+        let [identifier, path] = address.split('/', 1);
+        if (!path) path = '';
+        return `http://${identifier}.desktop-ch73dop:5000/${path}`;
+    }
+</script>
+{% endblock %}

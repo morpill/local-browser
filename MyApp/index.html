@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heavy Load Demo</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #0b1220;
+      color: white;
+      font-family: system-ui;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 40px;
+      text-align: center;
+      background: #111827;
+      position: sticky;
+      top: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(20, 1fr);
+      gap: 6px;
+      padding: 20px;
+    }
+
+    .box {
+      width: 100%;
+      aspect-ratio: 1;
+      background: linear-gradient(45deg, #3b82f6, #9333ea);
+      border-radius: 4px;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.6; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    canvas {
+      display: block;
+      background: black;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Heavy Load Demo 🚀</h1>
+  <p>Viele Elemente + Animation + Canvas</p>
+  <i>V2</i>
+</header>
+
+<div class="grid" id="grid"></div>
+
+<canvas id="canvas"></canvas>
+
+<script>
+  // 1. MASSIV viele DOM-Elemente erzeugen
+  const grid = document.getElementById("grid");
+
+  for (let i = 0; i < 2000; i++) {
+    const div = document.createElement("div");
+    div.className = "box";
+    grid.appendChild(div);
+  }
+
+  // 2. CPU-Last (harmlos, aber intensiv)
+  function heavyCalculation() {
+    let x = 0;
+    for (let i = 0; i < 5_000_000; i++) {
+      x += Math.sqrt(i) * Math.sin(i);
+    }
+    console.log("Done:", x);
+  }
+
+  setTimeout(heavyCalculation, 500);
+
+  // 3. Canvas Partikel Animation
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = window.innerWidth;
+  canvas.height = 400;
+
+  const particles = [];
+
+  for (let i = 0; i < 500; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 4,
+      vy: (Math.random() - 0.5) * 4
+    });
+  }
+
+  function animate() {
+    ctx.fillStyle = "rgba(0,0,0,0.2)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+      ctx.fillStyle = "white";
+      ctx.fillRect(p.x, p.y, 2, 2);
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+</script>
+
+</body>
+</html>
