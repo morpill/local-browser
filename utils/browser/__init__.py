@@ -4,6 +4,7 @@ import webview as wv
 import sys
 from requests.exceptions import ConnectionError
 import subprocess
+from core.caching import Cache
 
 def display(proxy_url: str):
     if proxy_url:
@@ -16,6 +17,10 @@ def process(address: str):
     if address.lower().strip() == '/run-proxy':
         start_proxy()
         return None
+    if address.lower().strip() == '/clear-cache':
+        Cache.clear()
+        return None
+        
     identifier, path = address.split('/', 1)
     return f'http://{identifier}.localhost:5000/{path}'
 

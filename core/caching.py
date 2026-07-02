@@ -25,6 +25,11 @@ def _add_entry(entry: CacheEntry):
     db.add(entry)
     db.commit()
     
+def _clear_cache():
+    db = Session()
+    db.query(CacheEntry).delete()
+    db.commit()
+    
 def is_cacheable(response: Response):
     headers = response.headers
     cache_control = headers.get('Cache-Control', '').lower()
@@ -71,6 +76,10 @@ class Cache:
             headers=json.dumps(headers)
         )
         return _add_entry(entry, *args, **kwargs)
+    
+    @staticmethod
+    def clear(*args, **kwargs):
+        return _clear_cache(*args, **kwargs)
 
 @dataclass        
 class CachedResource:
