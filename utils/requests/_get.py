@@ -2,6 +2,7 @@ from core.registry import App, AppRegistry
 from utils.validation.validate_target import validate_target
 from errors import Invalid
 from core.caching import Cache, is_cacheable, CachedResource, CacheEntry, get_max_age, is_cached_valid
+from core.cookies import Cookies
 from config import config
 import json
 import requests
@@ -53,3 +54,12 @@ def _use_cached(
         headers
     ) if is_cached_valid(result, max_age) else None
     
+def cookies(r: Invalid | CachedResource | requests.Response, identifier: str, path: str):
+    if not 'Set-Cookie' in r.headers:
+        return
+    
+    Cookies.set(
+        app_identifier=identifier,
+        path=path,
+        
+    )
