@@ -1,5 +1,5 @@
 config = {
-    'PROXY_PORT': 5000,
+    'PROXY_PORT': 5001,
     'CACHING_MAX_AGE': {
         'text/html': 300,
         'text/css': 3600,
