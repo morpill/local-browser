@@ -36,6 +36,8 @@ def browser():
             
     if should_start_studio():
         try:
+            from ui.app import app
+            app.run(port=5678)
             pass
         except KeyboardInterrupt:
             sys.exit(0)
