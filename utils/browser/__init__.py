@@ -1,5 +1,5 @@
 from core.proxy import start as start_proxy
-from cli.tools import proxy_only, get_url, start_example
+from cli.tools import proxy_only, get_url, start_example, should_start_studio
 import webview as wv
 import sys
 from requests.exceptions import ConnectionError
@@ -33,6 +33,16 @@ def browser():
             sys.exit(0)
         finally:
             sys.exit(0)
+            
+    if should_start_studio():
+        try:
+            pass
+        except KeyboardInterrupt:
+            sys.exit(0)
+        finally:
+            sys.exit(0)
+            
+            
     
     start_proxy()
     

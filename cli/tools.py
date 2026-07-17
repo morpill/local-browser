@@ -12,5 +12,8 @@ def should_cache():
 
 def start_example() -> bool:
     return sys.argv[1].lower() == '--run-example' if len(sys.argv) > 1 else None 
+
+def should_start_studio():
+    return sys.argv[1].lower() == '--studio' if len(sys.argv) > 1 else None
     
 should_cache()
