@@ -222,3 +222,6 @@ __marimo__/
 # LocalBrowser
 *.lb
 *.lbcfg
+config/
+config 
+config/*
