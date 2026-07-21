@@ -5,6 +5,8 @@ import sys
 from requests.exceptions import ConnectionError
 import subprocess
 from core.caching import Cache
+import webbrowser
+import threading
 
 def display(proxy_url: str):
     if proxy_url:
@@ -35,7 +37,11 @@ def browser():
             sys.exit(0)
             
     if should_start_studio():
+        def open(port=5678):
+            webbrowser.open(f'http://localhost:{port}')
         try:
+            thr = threading.Thread(target=open)
+            thr.start()
             from ui.app import app
             app.run(port=5678)
             pass
