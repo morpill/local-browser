@@ -14,9 +14,7 @@ If you discover a security vulnerability, please report it responsibly.
 
 You can contact the maintainer by:
 
-- Email: **spam.mp@outlook.de**
-- GitHub Security Advisories (preferred, if enabled)
-- GitHub Issues (only for vulnerabilities that are already public)
+- GitHub Security reports
 
 I aim to respond to all reports within **5 business days**.
 
