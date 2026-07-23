@@ -1,10 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 <header>
-    <input type="text" placeholder="Type to search" id="url">
-    <button id="search">Search</button>
+    <input
+        type="text"
+        id="url"
+        placeholder="Search or enter LocalBrowser address..."
+    >
+
+    <button id="search">
+        🔍 Search
+    </button>
 </header>
-<iframe src="" frameborder="0" id="view"></iframe>
+
+<main>
+    <div class="browser">
+        <iframe id="view"></iframe>
+    </div>
+</main>
 <script>
     const proxPort = "{{ proxy_port }}";
 
