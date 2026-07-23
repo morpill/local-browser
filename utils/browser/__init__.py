@@ -40,8 +40,10 @@ def browser():
         def open(port=5678):
             webbrowser.open(f'http://localhost:{port}')
         try:
-            thr = threading.Thread(target=open)
-            thr.start()
+            open_thr = threading.Thread(target=open)
+            open_thr.start()
+            proxy_thr = threading.Thread(target=start_proxy)
+            proxy_thr.start()
             from ui.app import app
             app.run(port=5678)
             pass

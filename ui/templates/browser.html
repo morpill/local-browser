@@ -6,6 +6,8 @@
 </header>
 <iframe src="" frameborder="0" id="view"></iframe>
 <script>
+    const proxPort = "{{ proxy_port }}";
+
     const inp = document.querySelector('input#url');
     const btn = document.querySelector('button#search');
     const view = document.querySelector('iframe#view');
@@ -24,7 +26,7 @@
         if (!address.includes('/')) address += '/';
         let [identifier, path] = address.split('/', 1);
         if (!path) path = '';
-        return `http://${identifier}.desktop-ch73dop:5000/${path}`;
+        return `http://${identifier}.localhost:${proxPort}/${path}`;
     }
 </script>
 {% endblock %}
